@@ -52,6 +52,23 @@ function insertData($table, $data) {
         mysqli_stmt_close($query);
         return $result;
     }
+        // show data with join
+        function showDataJoin($table, $table2, $joinCondition, $columns = "*") {
+        global $koneksi;
+
+        //safety. prevent sql injection
+        $allowedTables = ['incoming_goods', 'outcoming_goods', 'transactions', 'transactions_details', 'stock', 'products'];
+        if (!in_array($table, $allowedTables) || !in_array($table2, $allowedTables)) {
+            echo "invalid request";
+            exit;
+        }
+
+        $query = "SELECT $columns FROM $table INNER JOIN $table2 ON $joinCondition";
+
+        $result = mysqli_query($koneksi, $query);
+        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $data;
+    }
 
     // format date
     function format($date, $format = 'd F Y') {

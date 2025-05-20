@@ -10,6 +10,7 @@
         <a href="coba.php">Halaman User</a>
         <a href="produk.php">Halaman Produk</a>
         <a href="stock.php">Halaman Stock</a>
+        <a href="incomingGoods.php">Halaman Incoming Goods</a>
     </div>
 </body>
 </html>

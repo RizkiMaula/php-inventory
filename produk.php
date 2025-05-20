@@ -5,8 +5,6 @@ require_once 'logics/functions.php';
 
 $data = showData('products');
 
-
-
 ?>
 
 <!DOCTYPE html>
