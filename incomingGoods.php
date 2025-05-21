@@ -3,7 +3,7 @@
 require_once 'koneksi.php';
 require_once "logics/functions.php";
 
-$query = showDataJoin('incoming_goods', 'products', 'incoming_goods.product_id = products.id', '`incoming_goods`.`product_id` AS number, `products`.`name` AS name, `incoming_goods`.`quantity` AS qnt, `incoming_goods`.`received_date` AS date');
+$query = showDataJoin('incoming_goods', 'products', 'incoming_goods.product_id = products.id', '`incoming_goods`.`product_id` AS number, `incoming_goods`.`id` AS id, `products`.`name` AS name, `incoming_goods`.`quantity` AS qnt, `incoming_goods`.`received_date` AS date');
 ?>
     
 <!DOCTYPE html>
@@ -15,6 +15,7 @@ $query = showDataJoin('incoming_goods', 'products', 'incoming_goods.product_id =
 </head>
 <body>
     <h1>Data Incoming Goods</h1>
+    <a href="insertIncomingGoods.php">Tambah Data Produk</a>
 <table border="1" style="padding: 10px; text-align: center">
         <tr style="padding: 10px;">
             <th>No</th>
@@ -30,7 +31,7 @@ $query = showDataJoin('incoming_goods', 'products', 'incoming_goods.product_id =
                     <td> <?= $row['name']; ?> </td>
                     <td> <?= $row['qnt']; ?> </td>
                     <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                    <td> <a href="editStock.php?id=<?= $row['number']; ?>">Edit</a> || <button onclick="confirmDelete('products', <?= $row['number']; ?>)">Delete</button> </td>
+                    <td> <button onclick="confirmDelete('incoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
                 </tr>       
             <?php endforeach; ?>
     </table>
@@ -40,13 +41,9 @@ $query = showDataJoin('incoming_goods', 'products', 'incoming_goods.product_id =
 <script>
     function confirmDelete(table, id) {
         if (confirm('are you sure you want to delete this data?')) {
-            window.location.href = `delete.php?table=${table}&id=${id}&redirect=${encodeURIComponent(window.location.href)}`;
+            window.location.href = `logics/undoIncomingGoods.php?table=${table}&id=${id}&redirect=${encodeURIComponent(window.location.href)}`;
         }
         alert('data deleted');
-    }
-
-    const edited = () => {
-        
     }
 </script>
 </html>
