@@ -70,6 +70,15 @@ function insertData($table, $data) {
         return $data;
     }
 
+    // join with 3 tables
+    function showDataJoin3($columns = "*", $table, $table2,  $joinCondition1, $table3, $joinCondition2) {
+        global $koneksi;
+        $query = "SELECT $columns FROM $table INNER JOIN $table2 ON $joinCondition1 INNER JOIN $table3 ON $joinCondition2";
+        $result = mysqli_query($koneksi, $query);
+        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $data;
+    }
+
     // format date
     function format($date, $format = 'd F Y') {
         return date($format, strtotime($date));
