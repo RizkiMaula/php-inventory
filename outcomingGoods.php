@@ -14,8 +14,8 @@ $query = showDataJoin('outcoming_goods', 'products', 'outcoming_goods.product_id
     <title>Document</title>
 </head>
 <body>
-    <h1>Data Incoming Goods</h1>
-    <a href="insertIncomingGoods.php">Tambah Data Produk</a>
+    <h1>Data Outcoming Goods</h1>
+    <a href="insertOutcomingGoods.php">Tambah Data Produk</a>
 <table border="1" style="padding: 10px; text-align: center">
         <tr style="padding: 10px;">
             <th>No</th>
@@ -35,7 +35,7 @@ $query = showDataJoin('outcoming_goods', 'products', 'outcoming_goods.product_id
                     <td> <?= $row['qnt']; ?> </td>
                     <td> <?= $row['reason']; ?> </td>
                     <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                    <td> <button onclick="confirmDelete('incoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
+                    <td> <button onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
                 </tr>       
             <?php endforeach; ?>
     </table>

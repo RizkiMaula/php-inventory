@@ -2,23 +2,22 @@
 require_once '../koneksi.php';
 require_once '../logics/functions.php';
 
-
 if (isset($_POST['submit'])) {
 
     $data = [
         
         'product_id' => $_POST['product_id'],
-        'supplier' => $_POST['supplier'],
+        'transaction_id' => $_POST['Transaction_id'],
         'quantity' => $_POST['quantity'],
-        'received_date' => date('Y-m-d H:i:s')
+        'reason' => $_POST['reason'],
+        'date' => date('Y-m-d H:i:s'),
     ];
-
-    $query = insertData('incoming_goods', $data);
+    $query = insertData('outcoming_goods', $data);
 
     if ($query['success']) {
         echo 
         "<script>
-                 alert('Berhasil menambahkan data'); window.location.href = '../incomingGoods.php';
+                 alert('Berhasil menambahkan data'); window.location.href = '../outcomingGoods.php';
         </script>";
     } else {
         echo 
@@ -27,4 +26,12 @@ if (isset($_POST['submit'])) {
         </script>";
     }
 }
+
+
+
+
+
+
+
+
 ?>

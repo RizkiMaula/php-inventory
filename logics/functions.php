@@ -87,6 +87,26 @@ function insertData($table, $data) {
         return $data;
     }
 
+    // show enum
+    function showEnum($table, $fields){
+        global $koneksi;
+
+        $result = mysqli_query($koneksi, "SHOW COLUMNS FROM $table LIKE '$fields'");
+        $row = mysqli_fetch_assoc($result);
+
+        $type = $row['Type'];
+
+        // ambil isi pakai regex
+        preg_match("/^enum\((.*)\)$/", $type, $matches);
+        $enum = explode(",", $matches[1]);
+
+        // bersihkan kutip dari tiap element
+        $enum = array_map(function ($value) {
+            return trim($value, "'");
+        }, $enum);
+
+        return $enum;
+    }
 
     // delete by id
     function deleteById($table, $id) {
