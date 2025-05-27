@@ -34,5 +34,3 @@ if (isset($_POST['submit'])) {
 
 
 ?>
-
-bantu saya buat lebih reusable
