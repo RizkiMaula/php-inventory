@@ -8,7 +8,7 @@ if (isset($_GET['table']) && isset($_GET['id']) && isset($_GET['redirect'])) {
     $redirect = $_GET['redirect'];
 
     // validate allowed tables 
-    $allowedTable = ['users', 'incoming_goods', 'outcoming_goods', 'products', 'stock', 'transactions', 'transactions_details'];
+    $allowedTable = ['users', 'incoming_goods', 'outcoming_goods', 'products', 'stock', 'transactions'];
 
     if (!in_array($table, $allowedTable)) {
         die('invalid request'); //prevent sql injection

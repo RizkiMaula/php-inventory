@@ -45,7 +45,7 @@ $query = showDataJoin('outcoming_goods', 'products', 'outcoming_goods.product_id
 <script>
     function confirmDelete(table, id) {
         if (confirm('are you sure you want to delete this data?')) {
-            window.location.href = `logics/undoIncomingGoods.php?table=${table}&id=${id}&redirect=${encodeURIComponent(window.location.href)}`;
+            window.location.href = `logics/delete.php?table=${table}&id=${id}&redirect=${encodeURIComponent(window.location.href)}`;
         }
         alert('data deleted');
     }

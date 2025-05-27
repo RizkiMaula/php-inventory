@@ -3,7 +3,7 @@
 require_once 'koneksi.php';
 require_once "logics/functions.php";
 
-$query = showDataJoin3('`products`.`name` as product_name, `users`.`name` as name, `transactions`.`total_sold` AS sold, `transactions`.`total_price` AS total, `transactions`.`payment_method`AS payment, `transactions`.`transaction_date` AS date', 'transactions', 'products', '`products`.`id` = `transactions`.`product_id`', 'users', '`users`.`id` = `transactions`.`user_id`');
+$query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_name, `users`.`name` as name, `transactions`.`total_sold` AS sold, `transactions`.`total_price` AS total, `transactions`.`payment_method`AS payment, `transactions`.`transaction_date` AS date', 'transactions', 'products', '`products`.`id` = `transactions`.`product_id`', 'users', '`users`.`id` = `transactions`.`user_id`');
 ?>
     
 <!DOCTYPE html>
@@ -11,11 +11,11 @@ $query = showDataJoin3('`products`.`name` as product_name, `users`.`name` as nam
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Transactions</title>
 </head>
 <body>
-    <h1>Data Outcoming Goods</h1>
-    <a href="insertOutcomingGoods.php">Tambah Data Produk</a>
+    <h1>Data Transactions</h1>
+    <a href="insertTransactions.php">Tambah Transaction</a>
 <table border="1" style="padding: 10px; text-align: center">
         <tr style="padding: 10px;">
             <th>No</th>
@@ -37,7 +37,7 @@ $query = showDataJoin3('`products`.`name` as product_name, `users`.`name` as nam
                     <td> <?= $row['total']; ?> </td>
                     <td> <?= $row['payment']; ?> </td>
                     <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                    <td> <button onclick="confirmDelete('transactions', <?= $row['id']; ?>)">Undo</button></td>
+                    <td> <button onclick="confirmDelete('transactions', <?= $row['id']; ?>)">Undo</button> </td>
                 </tr>       
             <?php endforeach; ?>
     </table>
@@ -47,7 +47,7 @@ $query = showDataJoin3('`products`.`name` as product_name, `users`.`name` as nam
 <script>
     function confirmDelete(table, id) {
         if (confirm('are you sure you want to delete this data?')) {
-            window.location.href = `logics/undoIncomingGoods.php?table=${table}&id=${id}&redirect=${encodeURIComponent(window.location.href)}`;
+            window.location.href = `logics/delete.php?table=${table}&id=${id}&redirect=${encodeURIComponent(window.location.href)}`;
         }
         alert('data deleted');
     }

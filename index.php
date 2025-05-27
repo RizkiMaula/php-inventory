@@ -12,6 +12,7 @@
         <a href="stock.php">Halaman Stock</a>
         <a href="incomingGoods.php">Halaman Incoming Goods</a>
         <a href="outcomingGoods.php">Halaman Outcoming Goods</a>
+        <a href="transactions.php">Halaman Transactions</a>
     </div>
 </body>
 </html>
