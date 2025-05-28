@@ -15,7 +15,7 @@ export function calculatePrice(productSelectId, soldInputId, totalInputId) {
   const total = document.getElementById(totalInputId);
 
   const updateTotal = () => {
-    const price = parseFlaot(priceInput.value) || 0;
+    const price = parseFloat(priceInput.value) || 0;
     const sold = parseFloat(soldInput.value) || 0;
     total.value = price * sold;
   };

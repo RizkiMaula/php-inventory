@@ -10,14 +10,9 @@
     <form action="logics/tambahOutcomingGoods.php" method="post">
         <label for="name">Product Name</label>
         <select name="product_id" id="product">
-            <?php 
-            require_once 'koneksi.php';
-            require_once 'logics/functions.php';
-                $products = showData('products');
-                foreach ($products as $product) {
-                    echo "<option value='{$product['id']}' data-price='{$product['price']}'>{$product['name']}</option>";
-                }
-            ?>
+            <?php foreach ($products as $product): ?>
+                <option value="<?= $product['id']; ?>" data-price="<?= $product['price']; ?>"> <?= $product['name']; ?> </option>
+            <?php endforeach; ?>
         </select>
         <br>
         <label for="user_id">Name</label>
@@ -38,6 +33,9 @@
         <label for="price">Price Per Unit</label>
         <input type="text" name="price" id="price" >
         <br>
+        <label for="total">Total</label>
+        <input type="text" name="total" id="total" >
+        <br>
         <label for="payment_method">Payment Method</label>
     <select name="payment_method" id="payment_method">
         <option value="cash">Cash</option>
@@ -49,7 +47,7 @@
         <button type="submit" name="submit">Submit</button>
     </form>
 
-    <script>
+    <!-- <script>
         const productSelect = document.getElementById('product');
         const priceInput = document.getElementById('price');
 
@@ -66,6 +64,12 @@
             const price = selectedOption.getAttribute('data-price');
             priceInput.value = price;
         })
+    </script> -->
+    <script type="module">
+        import { setPriceProduct, calculatePrice } from './js/helper.js';
+
+        setPriceProduct('product', 'price');
+        calculatePrice('price', 'sold', 'total');
     </script>
 </body>
 </html>
