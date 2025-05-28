@@ -6,10 +6,12 @@ if (isset($_POST['submit'])) {
 
     $data = [     
         'product_id' => $_POST['product_id'],
-        'transaction_id' => $_POST['Transaction_id'],
-        'quantity' => $_POST['quantity'],
-        'reason' => $_POST['reason'],
-        'date' => date('Y-m-d H:i:s'),
+        'user_id' => $_POST['user_id'],
+        'total_sold' => $_POST['total_sold'],
+        'price_per_unit' => $_POST['price_per_unit'],
+        'total_price' => $_POST['total_price'],
+        'payment_method' => $_POST['payment_method'],
+        'transaction_date' => date('Y-m-d H:i:s'),
     ];
     $query = insertData('transactions', $data);
 

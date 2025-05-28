@@ -160,8 +160,6 @@ function insertData($table, $data) {
                 return ['success' => false, 'message' => 'gagal mengupdate data: ' . mysqli_error($koneksi)];
             }
 
-
-
             mysqli_stmt_bind_param($stmt, $type, ...$values);
             $success = mysqli_stmt_execute($stmt);
             $error = mysqli_stmt_error($stmt);

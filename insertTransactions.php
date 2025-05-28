@@ -1,3 +1,10 @@
+<?php  
+    require_once 'koneksi.php';
+    require_once 'logics/functions.php';
+    $products = showData('products');
+    $users = showData('users');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,35 +14,46 @@
 </head>
 <body>
     <h1>Tambah Transactions</h1>
-    <form action="logics/tambahOutcomingGoods.php" method="post">
+    <form action="logics/tambahTransactions.php" method="post">
+
+        <!-- product name -->
         <label for="name">Product Name</label>
-        <select name="product_id" id="product">
-            <?php foreach ($products as $product): ?>
-                <option value="<?= $product['id']; ?>" data-price="<?= $product['price']; ?>"> <?= $product['name']; ?> </option>
+        <select name="product_id" id="product_id">
+            <?php foreach ($products as $product) : ?>
+                <option value="<?= $product['id'] ?>" data-price="<?= $product['price'] ?>">
+                    <?= $product['name'] ?>
+                </option>
             <?php endforeach; ?>
         </select>
         <br>
+
+        <!-- buat name -->
         <label for="user_id">Name</label>
         <select name="user_id" id="user_id">
-            <?php 
-            require_once 'koneksi.php';
-            require_once 'logics/functions.php';
-                $users = showData('users');
-                foreach ($users as $user) {
-                    echo "<option value='" . $user['id'] . "'>" . $user['name'] . "</option>";
-                }
-            ?>
+            <?php foreach ($users as $user) : ?>            
+                <option value="<?= $user['id'] ?>">
+                    <?= $user['name'] ?>
+                </option>
+            <?php endforeach; ?>
         </select>
         <br>
-        <label for="sold">Total Sold</label>
-        <input type="text" name="sold" id="sold">
+
+        <!-- total sold -->
+        <label for="total_sold">Total Sold</label>
+        <input type="text" name="total_sold" id="total_sold">
         <br>
-        <label for="price">Price Per Unit</label>
-        <input type="text" name="price" id="price" >
+
+        <!-- price -->
+        <label for="price_per_unit">Price Per Unit</label>
+        <input type="text" name="price_per_unit" id="price_per_unit" >
         <br>
-        <label for="total">Total</label>
-        <input type="text" name="total" id="total" >
+
+        <!-- total price -->
+        <label for="total_price">Total</label>
+        <input type="text" name="total_price" id="total_price" >
         <br>
+
+        <!-- payment method -->
         <label for="payment_method">Payment Method</label>
     <select name="payment_method" id="payment_method">
         <option value="cash">Cash</option>
@@ -47,29 +65,11 @@
         <button type="submit" name="submit">Submit</button>
     </form>
 
-    <!-- <script>
-        const productSelect = document.getElementById('product');
-        const priceInput = document.getElementById('price');
-
-        productSelect.addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            const price = selectedOption.getAttribute('data-price');
-            priceInput.value = price;
-        })
-
-        // trigger saat pertama dibuat
-
-        window.addEventListener(DOMContentLoaded, function() {
-            const selectedOption = productSelect.options[productSelect.selectedIndex];
-            const price = selectedOption.getAttribute('data-price');
-            priceInput.value = price;
-        })
-    </script> -->
     <script type="module">
         import { setPriceProduct, calculatePrice } from './js/helper.js';
 
-        setPriceProduct('product', 'price');
-        calculatePrice('price', 'sold', 'total');
+        setPriceProduct('product_id', 'price_per_unit');
+        calculatePrice('total_sold', 'price_per_unit', 'total_price');
     </script>
 </body>
 </html>

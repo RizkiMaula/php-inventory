@@ -1,6 +1,6 @@
 export function setPriceProduct(productSelectId, priceInputId) {
-  const productSelect = document.getElementById('product');
-  const priceInput = document.getElementById('price');
+  const productSelect = document.getElementById(productSelectId);
+  const priceInput = document.getElementById(priceInputId);
 
   productSelect.addEventListener('change', function () {
     const selectedOption = this.options[this.selectedIndex];
