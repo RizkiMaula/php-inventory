@@ -55,12 +55,12 @@
 
         <!-- payment method -->
         <label for="payment_method">Payment Method</label>
-    <select name="payment_method" id="payment_method">
-        <option value="cash">Cash</option>
-        <option value="credit">Credit</option>
-        <option value="debit">Debit</option>
-        <option value="ewallet">Ewallet</option>
-    </select>
+            <select name="payment_method" id="payment_method">
+                <option value="cash">Cash</option>
+                <option value="credit">Credit</option>
+                <option value="debit">Debit</option>
+                <option value="ewallet">Ewallet</option>
+            </select>
         <br>
         <button type="submit" name="submit">Submit</button>
     </form>

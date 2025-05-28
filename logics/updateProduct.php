@@ -1,5 +1,4 @@
 <?php 
-
 require_once '../koneksi.php';
 require_once '../logics/functions.php';
 
@@ -7,7 +6,6 @@ require_once '../logics/functions.php';
 if (isset($_POST['submit'])) {
 
     $data = [
-        
         'name' => $_POST['name'],
         'category' => $_POST['category'],
         'price' => $_POST['price'],

@@ -3,7 +3,7 @@
 require_once 'koneksi.php';
 require_once "logics/functions.php";
 
-$query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_name, `users`.`name` as name, `transactions`.`total_sold` AS sold, `transactions`.`total_price` AS total, `transactions`.`payment_method`AS payment, `transactions`.`transaction_date` AS date', 'transactions', 'products', '`products`.`id` = `transactions`.`product_id`', 'users', '`users`.`id` = `transactions`.`user_id`');
+$query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_name, `users`.`name` as name, `transactions`.`total_sold` AS sold, `transactions`.`total_price` AS total, `transactions`.`payment_method`AS payment, `transactions`.`price_per_unit`AS price, `transactions`.`transaction_date` AS date', 'transactions', 'products', '`products`.`id` = `transactions`.`product_id`', 'users', '`users`.`id` = `transactions`.`user_id`');
 ?>
     
 <!DOCTYPE html>
@@ -23,6 +23,7 @@ $query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_
             <th>Name</th>
             <th>Sold</th>
             <th>Price</th>
+            <th>Total Price</th>
             <th>Payment</th>
             <th>Transaction</th>
             <th>Action</th>
@@ -34,10 +35,11 @@ $query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_
                     <td> <?= $row['product_name']; ?> </td>
                     <td> <?= $row['name']; ?> </td>
                     <td> <?= $row['sold']; ?> </td>
+                    <td> <?= $row['price']; ?> </td>
                     <td> <?= $row['total']; ?> </td>
                     <td> <?= $row['payment']; ?> </td>
                     <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                    <td> <button onclick="confirmDelete('transactions', <?= $row['id']; ?>)">Undo</button> </td>
+                    <td> <a href="editTransactions.php?id=<?= $row['id']; ?>">Edit</a> || <button onclick="confirmDelete('transactions', <?= $row['id']; ?>)">Undo</button> </td>
                 </tr>       
             <?php endforeach; ?>
     </table>
