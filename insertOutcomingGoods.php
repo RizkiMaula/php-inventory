@@ -20,18 +20,6 @@
             ?>
         </select>
         <br>
-        <label for="Transaction_id">Transaction ID</label>
-        <select name="Transaction_id" id="Transaction_id">
-            <?php 
-            require_once 'koneksi.php';
-            require_once 'logics/functions.php';
-                $transactions = showData('transactions');
-                foreach ($transactions as $transaction) {
-                    echo "<option value='" . $transaction['id'] . "'>" . $transaction['id'] . "</option>";
-                }
-            ?>
-        </select>
-        <br>
         <label for="quantity">Quantity</label>
         <input type="text" name="quantity" id="quantity">
         <br>
