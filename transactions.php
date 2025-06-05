@@ -15,7 +15,7 @@ $query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_
 </head>
 <body>
     <h1>Data Transactions</h1>
-    <a href="insertTransactions.php">Tambah Transaction</a>
+    <a href="forms/formTransaction.php">Tambah Transaction</a>
 <table border="1" style="padding: 10px; text-align: center">
         <tr style="padding: 10px;">
             <th>No</th>
@@ -39,7 +39,7 @@ $query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_
                     <td> <?= $row['total']; ?> </td>
                     <td> <?= $row['payment']; ?> </td>
                     <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                    <td> <a href="editTransactions.php?id=<?= $row['id']; ?>">Edit</a> || <button onclick="confirmDelete('transactions', <?= $row['id']; ?>)">Undo</button> </td>
+                    <td> <a href="forms/formTransaction.php?id=<?= $row['id']; ?>">Edit</a> || <button onclick="confirmDelete('transactions', <?= $row['id']; ?>)">Undo</button> </td>
                 </tr>       
             <?php endforeach; ?>
     </table>

@@ -1,6 +1,6 @@
 <?php 
-    require_once 'koneksi.php';
-    require_once 'logics/functions.php';
+    require_once '../koneksi.php';
+    require_once '../logics/functions.php';
 
     $isEdit = isset($_GET['id']);
     $transaction = [
@@ -35,7 +35,7 @@
 </head>
 <body>
     <h1><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</h1>
-    <form action="" method="post">
+    <form action="../logics/saveTransactions.php" method="post">
 
     <!-- hidden id, kalo edit ada tapi di hidden kalo insert ya ga ada -->
     <?php if ($isEdit) : ?>
@@ -86,21 +86,17 @@
         <!-- payment method -->
         <label for="payment_method">Payment Method</label>
             <select name="payment_method" id="payment_method">
-                <?php 
-                    $methods = ['cash', 'credit', 'debit', 'ewallet'];
-                    foreach ($methods as $method): ?>
-                        <option value="<?= $method ?>" 
-                            <?= $$transaction['payment_method'] === $method ? 'selected' : ''; ?>>
-                            <?= ucfirst($method) ?>
-                        </option>
-                <?php endforeach; ?>
+               <option value="cash">Cash</option>
+               <option value="debit">Debit</option>
+               <option value="credit">Credit</option>
+               <option value="ewallet">Ewallet</option>
             </select>
         <br>
         <button type="submit" name="submit">Submit</button>
     </form>
 
     <script type="module">
-        import { setPriceProduct, calculatePrice } from './js/helper.js';
+        import { setPriceProduct, calculatePrice } from '../js/helper.js';
 
         setPriceProduct('product_id', 'price_per_unit');
         calculatePrice('total_sold', 'price_per_unit', 'total_price');
