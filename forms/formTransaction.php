@@ -2,26 +2,18 @@
     require_once '../koneksi.php';
     require_once '../logics/functions.php';
 
-    $isEdit = isset($_GET['id']);
-    $transaction = [
-        'product_id' => '',
-        'user_id' => '',
-        'total_sold' => '',
-        'price_per_unit' => '',
-        'total_price' => '',
-        'payment_method' => '',
-    ];
+    $id = $_GET['id'] ?? null;
+    $isEdit = $id !== null;
 
     if ($isEdit) {
-        $id = $_GET['id'];
-        $data = showDataById('transactions', $id);
-        if (!$data) {
+        $transaction = showDataById('transactions', $id);
+        if (!$transaction) {
             echo "Data not found";
             exit;
         }
-        $transaction = $data;
-    }
+    } 
 
+    // buat isi select option
     $products = showData('products');
     $users = showData('users');
 ?>
@@ -31,10 +23,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</title>
+    <title><?= $isEdit ? 'Update' : 'Add'; ?> Transaction</title>
 </head>
 <body>
-    <h1><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</h1>
+    <h1><?= $isEdit ? 'Update' : 'Add'; ?> Transaction</h1>
     <form action="../logics/saveTransactions.php" method="post">
 
     <!-- hidden id, kalo edit ada tapi di hidden kalo insert ya ga ada -->
@@ -47,9 +39,9 @@
         <select name="product_id" id="product_id">
             <?php foreach ($products as $product) : ?>
                 <option 
-                    value="<?= $product['id'] ?>" 
+                    value="<?= $product['id'] ?? ''; ?>" 
                     data-price="<?= $product['price'] ?>" 
-                    <?= $product['id'] == $transaction['product_id'] ? 'selected' : ''; ?>>
+                    <?= $product['id'] ? 'selected' : ''; ?>>
                         <?= $product['name'] ?>
                 </option>
             <?php endforeach; ?>
@@ -60,8 +52,8 @@
         <label for="user_id">Name</label>
         <select name="user_id" id="user_id">
             <?php foreach ($users as $user) : ?>            
-                <option value="<?= $user['id'] ?>"
-                    <?= $user['id'] == $transaction['user_id'] ? 'selected' : ''; ?>>
+                <option value="<?= $user['id'] ?? ''; ?>"
+                    <?= $user['id'] ? 'selected' : ''; ?>>
                     <?= $user['name'] ?>
                 </option>
             <?php endforeach; ?>
@@ -70,17 +62,17 @@
 
         <!-- total sold -->
         <label for="total_sold">Total Sold</label>
-        <input type="text" name="total_sold" id="total_sold" value="<?= $transaction['total_sold'] ?>">
+        <input type="text" name="total_sold" id="total_sold" value="<?= $transaction['total_sold'] ?? ''; ?>">
         <br>
 
         <!-- price -->
         <label for="price_per_unit">Price Per Unit</label>
-        <input type="text" name="price_per_unit" id="price_per_unit"  value="<?= $transaction['price_per_unit'] ?>">
+        <input type="text" name="price_per_unit" id="price_per_unit"  value="<?= $transaction['price_per_unit'] ?? ''; ?>">
         <br>
 
         <!-- total price -->
         <label for="total_price">Total</label>
-        <input type="text" name="total_price" id="total_price" value="<?= $transaction['total_price'] ?>">
+        <input type="text" name="total_price" id="total_price" value="<?= $transaction['total_price'] ?? ''; ?>">
         <br>
 
         <!-- payment method -->

@@ -45,8 +45,5 @@ $query = showDataJoin('stock', 'products', 'stock.product_id = products.id', '`s
         alert('data deleted');
     }
 
-    const edited = () => {
-        
-    }
 </script>
 </html>

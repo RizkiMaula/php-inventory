@@ -16,7 +16,7 @@ $data = showData('products');
 </head>
 <body>
     <h1>Data Product</h1>
-    <a href="insert.php">Tambah Data Produk</a>
+    <a href="forms/formProduct.php">Tambah Data Produk</a>
 <table border="1" style="padding: 10px; text-align: center">
         <tr style="padding: 10px;">
             <th>No</th>
@@ -34,7 +34,7 @@ $data = showData('products');
                     <td> <?= $row['category']; ?> </td>
                     <td> <?= $row['price']; ?> </td>
                     <td> <?= format($row['created_at']); ?> </td>
-                    <td> <a href="edit.php?id=<?= $row['id']; ?>">Edit</a> || <button onclick="confirmDelete('products', <?= $row['id']; ?>)">Delete</button> </td>
+                    <td> <a href="forms/formProduct.php?id=<?= $row['id']; ?>">Edit</a> || <button onclick="confirmDelete('products', <?= $row['id']; ?>)">Delete</button> </td>
                 </tr>
             <?php endforeach; ?>
     </table>
