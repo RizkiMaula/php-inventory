@@ -1,3 +1,13 @@
+<?php 
+session_start();
+
+if (!isset($_SESSION['id'])) {
+    header("Location: forms/formLogin.php");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +23,7 @@
         <a href="incomingGoods.php">Halaman Incoming Goods</a>
         <a href="outcomingGoods.php">Halaman Outcoming Goods</a>
         <a href="transactions.php">Halaman Transactions</a>
+        <a href="logics/logout.php">logout</a>
     </div>
 </body>
 </html>

@@ -2,8 +2,9 @@
 
 function insertData($table, $data) {
     global $koneksi;
-    // ambil column dan placeholder
-    $colums = implode(',', array_keys($data)); 
+
+    // ambil columns dan placeholder
+    $columns = implode(',', array_keys($data));
     $placeholder = rtrim(str_repeat('?,', count($data)), ',');
 
     // tentukan tipe data otomatis
@@ -11,36 +12,36 @@ function insertData($table, $data) {
     foreach ($data as $value) {
         if (is_int($value)) {
             $type .= 'i';
-        } elseif (is_float($value)){
+        } elseif (is_float($value)) {
             $type .= 'd';
         } else {
             $type .= 's';
         }
     }
-    
+
     // logic insert
-    $query = "INSERT INTO $table ($colums) VALUES ($placeholder)";
+    $query = "INSERT INTO $table ($columns) VALUES ($placeholder)";
     $stmt = mysqli_prepare($koneksi, $query);
 
     if (!$stmt) {
-        return['success' => false, 'message' => 'gagal menambahkan data: ' . mysqli_error($koneksi)];
+        return ['success' => false, 'message' => 'Gagal menyiapkan query: ' . mysqli_error($koneksi)];
     }
 
     // bind data
     $values = array_values($data);
     mysqli_stmt_bind_param($stmt, $type, ...$values);
 
-
     // execution
-
     $success = mysqli_stmt_execute($stmt);
     $error = mysqli_stmt_error($stmt);
     mysqli_stmt_close($stmt);
 
-
     return [
-        'success' => $success, 'message' => $error];
-    }
+        'success' => $success,
+        'message' => $error
+    ];
+}
+
 
     // show data
     function showData($table) {
@@ -94,6 +95,18 @@ function insertData($table, $data) {
         $data = mysqli_fetch_assoc($result);
         mysqli_stmt_close($query);
         return $data;
+    }
+
+    // show userByEmail
+    function showUserByEmail($email) {
+    global $koneksi;
+    $query = mysqli_prepare($koneksi, "SELECT * FROM users WHERE email = ?");
+    mysqli_stmt_bind_param($query, 's', $email);
+    mysqli_stmt_execute($query);
+    $result = mysqli_stmt_get_result($query);
+    $data = mysqli_fetch_assoc($result); 
+    mysqli_stmt_close($query);
+    return $data;
     }
 
     // show enum
