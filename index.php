@@ -14,6 +14,7 @@ if (!isset($_SESSION['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body style="background-color: #e2e2e2;">
     <div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px">
@@ -24,6 +25,8 @@ if (!isset($_SESSION['id'])) {
         <a href="outcomingGoods.php">Halaman Outcoming Goods</a>
         <a href="transactions.php">Halaman Transactions</a>
         <a href="logics/logout.php">logout</a>
+        <button type="button" class="btn btn-primary">Base class</button>
     </div>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -23,6 +23,8 @@ if ($isEdit) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
 </head>
 <body>
     <h1><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</h1>
