@@ -44,9 +44,9 @@ function insertData($table, $data) {
 
 
     // show data
-    function showData($table) {
+    function showData($table, $orderBy = null) {
         global $koneksi;
-        $query = mysqli_prepare($koneksi, "SELECT * FROM $table");
+        $query = mysqli_prepare($koneksi, "SELECT * FROM $table $orderBy");
         mysqli_stmt_execute($query);
         $result = mysqli_stmt_get_result($query);
         $data = mysqli_fetch_all($result, MYSQLI_ASSOC);

@@ -40,7 +40,7 @@ $i = 1;
                         <td> <?= $row['qnt']; ?> </td>
                         <td> <?= $row['reason']; ?> </td>
                         <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                        <td> <button onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
+                        <td> <button class="btn btn-danger" onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
                     </tr>       
                 <?php endforeach; ?>
         </table>
