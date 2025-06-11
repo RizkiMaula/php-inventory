@@ -16,17 +16,48 @@ if (!isset($_SESSION['id'])) {
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
-<body style="background-color: #e2e2e2;">
-    <div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px">
-        <a href="coba.php">Halaman User</a>
-        <a href="produk.php">Halaman Produk</a>
-        <a href="stock.php">Halaman Stock</a>
-        <a href="incomingGoods.php">Halaman Incoming Goods</a>
-        <a href="outcomingGoods.php">Halaman Outcoming Goods</a>
-        <a href="transactions.php">Halaman Transactions</a>
-        <a href="logics/logout.php">logout</a>
-        <button type="button" class="btn btn-primary">Base class</button>
+<body class="bg-light d-flex align-items-center justify-content-center vh-100">
+    <div class="container text-center p-5 rounded shadow">
+        <div class="row">
+            <a href="profile.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+            <i data-lucide="user"></i>
+            <span>Profile</span>
+            </a>
+        </div>
+        <div class="row">
+            <a href="produk.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+            <i data-lucide="package"></i>
+            <span>Product</span>
+            </a>
+            <a href="stock.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+            <i data-lucide="warehouse"></i>
+            <span>Stock</span>
+            </a>
+            <a href="incomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+            <i data-lucide="arrow-down-circle"></i>
+            <span>Incoming Goods</span>
+            </a>
+        </div>
+        <div class="row">
+            <a href="outcomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+            <i data-lucide="arrow-up-circle"></i>
+            <span>Outcoming Goods</span>
+            </a>
+            <a href="transactions.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+            <i data-lucide="receipt"></i>
+            <span>Transaction</span>
+            </a>
+            <a href="logics/logout.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+            <i data-lucide="log-out"></i>
+            <span>Logout</span>
+            </a>
+        </div>
     </div>
+    
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

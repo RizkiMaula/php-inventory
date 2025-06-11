@@ -51,7 +51,7 @@ function insertData($table, $data) {
         $result = mysqli_stmt_get_result($query);
         $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         mysqli_stmt_close($query);
-        return $result;
+        return $data;
     }
         // show data with join
         function showDataJoin($table, $table2, $joinCondition, $columns = "*", $orderBy = null) {
