@@ -54,7 +54,7 @@ function insertData($table, $data) {
         return $result;
     }
         // show data with join
-        function showDataJoin($table, $table2, $joinCondition, $columns = "*") {
+        function showDataJoin($table, $table2, $joinCondition, $columns = "*", $orderBy = null) {
         global $koneksi;
 
         //safety. prevent sql injection
@@ -64,7 +64,7 @@ function insertData($table, $data) {
             exit;
         }
 
-        $query = "SELECT $columns FROM $table INNER JOIN $table2 ON $joinCondition";
+        $query = "SELECT $columns FROM $table INNER JOIN $table2 ON $joinCondition $orderBy";
 
         $result = mysqli_query($koneksi, $query);
         $data = mysqli_fetch_all($result, MYSQLI_ASSOC);

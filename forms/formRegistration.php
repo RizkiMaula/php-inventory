@@ -41,6 +41,7 @@ $data = showEnum('users', 'role');
                 <input type="password" class="form-control" id="inputPassword3" name="password">
             </div>
         </div>
+        
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Role</label>
             <div class="col-sm-10">

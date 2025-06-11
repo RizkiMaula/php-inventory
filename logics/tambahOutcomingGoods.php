@@ -7,7 +7,6 @@ if (isset($_POST['submit'])) {
     $data = [
         
         'product_id' => $_POST['product_id'],
-        'transaction_id' => $_POST['Transaction_id'],
         'quantity' => $_POST['quantity'],
         'reason' => $_POST['reason'],
         'date' => date('Y-m-d H:i:s'),

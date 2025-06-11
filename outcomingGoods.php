@@ -3,7 +3,9 @@
 require_once 'koneksi.php';
 require_once "logics/functions.php";
 
-$query = showDataJoin('outcoming_goods', 'products', 'outcoming_goods.product_id = products.id', '`outcoming_goods`.`product_id` AS number, `outcoming_goods`.`id` AS id, `products`.`name` AS name, `outcoming_goods`.`quantity` AS qnt, `outcoming_goods`.`date` AS date, `outcoming_goods`.`transaction_id` AS transaction, `outcoming_goods`.`reason` AS reason');
+$query = showDataJoin('outcoming_goods', 'products', 'outcoming_goods.product_id = products.id', '`outcoming_goods`.`product_id` AS number, `outcoming_goods`.`id` AS id, `products`.`name` AS name, `outcoming_goods`.`quantity` AS qnt, `outcoming_goods`.`date` AS date, `outcoming_goods`.`transaction_id` AS transaction, `outcoming_goods`.`reason` AS reason', 'ORDER BY `outcoming_goods`.`id` DESC');
+
+$i = 1;
 ?>
     
 <!DOCTYPE html>
@@ -12,34 +14,38 @@ $query = showDataJoin('outcoming_goods', 'products', 'outcoming_goods.product_id
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Data Outcoming Goods</h1>
-    <a href="insertOutcomingGoods.php">Tambah Data Produk</a>
-<table border="1" style="padding: 10px; text-align: center">
-        <tr style="padding: 10px;">
-            <th>No</th>
-            <th>Name</th>
-            <th>Transaction ID</th>
-            <th>Quantity</th>
-            <th>Reason</th>
-            <th>Date</th>
-            <th>Action</th>
-        </tr>
-        <?php $i = 1; ?>
-          <?php  foreach ($query as $row) : ?>
-                <tr style="padding: 10px;">
-                    <td> <?= $i++; ?> </td>
-                    <td> <?= $row['name']; ?> </td>
-                    <td> <?= !empty($row['transaction']) ? $row['transaction'] : '-'; ?> </td>
-                    <td> <?= $row['qnt']; ?> </td>
-                    <td> <?= $row['reason']; ?> </td>
-                    <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                    <td> <button onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
-                </tr>       
-            <?php endforeach; ?>
-    </table>
-    <a href="index.php">ke halaman index</a>
+    <div class="container mt-5 border p-5 rounded shadow">
+        <h1>Data Outcoming Goods</h1>
+        <a href="insertOutcomingGoods.php">Tambah Data Produk</a>
+    <table class="table table-striped" style="padding: 10px; text-align: center">
+        <thead>
+            <tr style="padding: 10px;">
+                <th>No</th>
+                <th>Name</th>
+                <th>Transaction ID</th>
+                <th>Quantity</th>
+                <th>Reason</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+              <?php  foreach ($query as $row) : ?>
+                    <tr style="padding: 10px;">
+                        <td> <?= $i++; ?> </td>
+                        <td> <?= $row['name']; ?> </td>
+                        <td> <?= !empty($row['transaction']) ? $row['transaction'] : '-'; ?> </td>
+                        <td> <?= $row['qnt']; ?> </td>
+                        <td> <?= $row['reason']; ?> </td>
+                        <td> <?= format($row['date'], 'd F Y'); ?> </td>
+                        <td> <button onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
+                    </tr>       
+                <?php endforeach; ?>
+        </table>
+        <a href="index.php">ke halaman index</a>
+    </div>
 </body>
 
 <script>

@@ -27,24 +27,37 @@ if ($isEdit) {
 
 </head>
 <body>
-    <h1><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</h1>
-    <form action="../logics/saveProduct.php" method="post">
-        <?php if ($isEdit) : ?>
-            <input type="hidden" name="id" id="id" value="<?= $product['id']; ?>">
-        <?php endif; ?>
-
-
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="<?= $product['name'] ?? ''; ?>">
-        <br>
-        <label for="category">Category</label>
-        <input type="text" name="category" id="category" value="<?= $product['category'] ?? ''; ?>">
-        <br>
-        <label for="price">Price</label>
-        <input type="text" name="price" id="price" value="<?= $product['price'] ?? ''; ?>">
-        <br>
-        <button type="submit" name="submit">Submit</button>
-    </form>
+    <div class="container mt-5 border p-5 rounded shadow">
+        <h1><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</h1>
+        <form action="../logics/saveProduct.php" method="post">
+            <?php if ($isEdit) : ?>
+                <input type="hidden" name="id" id="id" value="<?= $product['id']; ?>">
+            <?php endif; ?>
+    
+            <div class="row mb-3">
+                <label for="name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name" value="<?= $product['name'] ?? ''; ?>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="category" class="col-sm-2 col-form-label">Category</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="category" name="category" value="<?= $product['category'] ?? ''; ?>">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="price" class="col-sm-2 col-form-label">Price</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="price" name="price" value="<?= $product['price'] ?? ''; ?>">
+                </div>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary mt-3 w-100">Submit</button>
+            <a href="../transactions.php" class="btn btn-danger mt-3 w-100">
+                Cancel
+            </a>
+        </form>
+    </div>
 </body>
 </html>
 
