@@ -1,6 +1,7 @@
 <?php 
 require_once '../koneksi.php';
 require_once '../logics/functions.php';
+session_start();
 
 
 $id = $_GET['id'] ?? null;
@@ -13,6 +14,11 @@ if ($isEdit) {
         echo "Data not found";
         exit;
     }
+}
+
+if ($_SESSION['role'] != 'admin') {
+    header('Location: ../forbidden.php');
+    exit();
 }
 
 ?>

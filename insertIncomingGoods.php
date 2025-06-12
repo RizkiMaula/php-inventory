@@ -1,10 +1,15 @@
 <?php 
 include_once 'koneksi.php';
 include_once 'logics/functions.php';
+session_start();
 
 
 $data = showData('products');
 
+if ($_SESSION['role'] != 'admin') {
+    header('Location: forbidden.php');
+    exit();
+}
 
 ?>
 

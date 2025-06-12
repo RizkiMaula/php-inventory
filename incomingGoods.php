@@ -2,9 +2,16 @@
 
 require_once 'koneksi.php';
 require_once "logics/functions.php";
+session_start();
 
 $query = showDataJoin('incoming_goods', 'products', 'incoming_goods.product_id = products.id', '`incoming_goods`.`product_id` AS number, `incoming_goods`.`id` AS id, `products`.`name` AS name, `incoming_goods`.`quantity` AS qnt, `incoming_goods`.`received_date` AS date');
 $i = 1;
+
+if ($_SESSION['role'] != 'admin') {
+    header('Location: forbidden.php');
+    exit();
+}
+
 ?>
     
 <!DOCTYPE html>
@@ -16,7 +23,7 @@ $i = 1;
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5 border p-5 rounded shadow">
+    <div class="p-5">
         <h1>Data Incoming Goods</h1>
         <a href="insertIncomingGoods.php">Tambah Data Produk</a>
     <table class="table table-striped" style="padding: 10px; text-align: center">

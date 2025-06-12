@@ -2,10 +2,17 @@
 
 require_once 'koneksi.php';
 require_once "logics/functions.php";
+session_start();
 
 $query = showDataJoin('outcoming_goods', 'products', 'outcoming_goods.product_id = products.id', '`outcoming_goods`.`product_id` AS number, `outcoming_goods`.`id` AS id, `products`.`name` AS name, `outcoming_goods`.`quantity` AS qnt, `outcoming_goods`.`date` AS date, `outcoming_goods`.`transaction_id` AS transaction, `outcoming_goods`.`reason` AS reason', 'ORDER BY `outcoming_goods`.`id` DESC');
 
 $i = 1;
+
+
+if ($_SESSION['role'] != 'admin') {
+    header('Location: forbidden.php');
+    exit();
+}
 ?>
     
 <!DOCTYPE html>

@@ -33,20 +33,41 @@ if (!isset($_SESSION['id'])) {
             <i data-lucide="warehouse"></i>
             <span>Stock</span>
             </a>
-            <a href="incomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
-            <i data-lucide="arrow-down-circle"></i>
-            <span>Incoming Goods</span>
-            </a>
+            <?php if ($_SESSION['role'] == 'admin') : ?>
+                <a href="incomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+                <i data-lucide="arrow-down-circle"></i>
+                <span>Incoming Goods</span>
+                </a>
+            <?php else : ?>
+                <div href="outcomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+                <i data-lucide="x"></i>
+                <span>Only Admin Can Access</span>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="row">
-            <a href="outcomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
-            <i data-lucide="arrow-up-circle"></i>
-            <span>Outcoming Goods</span>
-            </a>
-            <a href="transactions.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
-            <i data-lucide="receipt"></i>
-            <span>Transaction</span>
-            </a>
+            <?php if ($_SESSION['role'] == 'admin') : ?>
+                <a href="outcomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+                <i data-lucide="arrow-up-circle"></i>
+                <span>Outcoming Goods</span>
+                </a>
+            <?php else : ?>
+                <div href="outcomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+                <i data-lucide="x"></i>
+                <span>Only Admin Can Access</span>
+                </div>
+            <?php endif; ?>
+            <?php if ($_SESSION['role'] == 'admin') : ?>
+                <a href="transactions.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+                <i data-lucide="receipt"></i>
+                <span>Transaction</span>
+                </a>
+            <?php else : ?>
+                <div href="outcomingGoods.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
+                <i data-lucide="x"></i>
+                <span>Only Admin Can Access</span>
+                </div>
+            <?php endif; ?>
             <a href="logics/logout.php" class="col border border-primary text-decoration-none p-4 d-flex flex-column align-items-center">
             <i data-lucide="log-out"></i>
             <span>Logout</span>

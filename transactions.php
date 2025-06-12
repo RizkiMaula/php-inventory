@@ -2,9 +2,17 @@
 
 require_once 'koneksi.php';
 require_once "logics/functions.php";
+session_start();
 
 $query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_name, `users`.`name` as name, `transactions`.`total_sold` AS sold, `transactions`.`total_price` AS total, `transactions`.`payment_method`AS payment, `transactions`.`price_per_unit`AS price, `transactions`.`transaction_date` AS date', 'transactions', 'products', '`products`.`id` = `transactions`.`product_id`', 'users', '`users`.`id` = `transactions`.`user_id`');
 $i = 1;
+
+if ($_SESSION['role'] != 'admin') {
+    header('Location: forbidden.php');
+    exit();
+}
+
+
 ?>
     
 <!DOCTYPE html>
@@ -16,7 +24,7 @@ $i = 1;
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5 border p-5 rounded shadow">
+    <div class="p-5">
             <h1>Data Transactions</h1>
             <a href="forms/formTransaction.php">Tambah Transaction</a>
         <table class="table table-striped" style="padding: 10px; text-align: center">

@@ -1,6 +1,7 @@
 <?php 
     require_once '../koneksi.php';
     require_once '../logics/functions.php';
+    session_start();
 
     $id = $_GET['id'] ?? null;
     $isEdit = $id !== null;
@@ -16,6 +17,14 @@
     // buat isi select option
     $products = showData('products');
     $users = showData('users');
+
+    if ($_SESSION['role'] != 'admin') {
+        header('Location: ../forbidden.php');
+        exit();
+    }
+
+
+
 ?>
 
 <!DOCTYPE html>

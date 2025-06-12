@@ -2,13 +2,16 @@
 
 include_once 'koneksi.php';
 include_once 'logics/functions.php';
+session_start();
 
 $data = showData('products');
 $reason = showEnum('outcoming_goods', 'reason');
 
 
-
-
+if ($_SESSION['role'] != 'admin') {
+    header('Location: forbidden.php');
+    exit();
+}
 
 ?>
 

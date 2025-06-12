@@ -2,6 +2,7 @@
 
 require_once 'koneksi.php';
 require_once "logics/functions.php";
+session_start();
 
 $query = showDataJoin('stock', 'products', 'stock.product_id = products.id', '`stock`.`product_id` AS number, `products`.`name` AS name, `stock`.`quantity` AS qnt, `stock`.`last_updated` AS updated', 'ORDER BY `products`.`name` ASC');
 
@@ -17,7 +18,7 @@ $i = 1;
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5 border p-5 rounded shadow">
+    <div class="p-5">
         <h1>Data Stock</h1>
     <table class="table table-striped" border="1" style="padding: 10px; text-align: center">
             <thead>
@@ -36,7 +37,12 @@ $i = 1;
                           <td> <?= $row['name']; ?> </td>
                           <td> <?= $row['qnt']; ?> </td>
                           <td> <?= format($row['updated'], 'd F Y'); ?> </td>
-                          <td> <a class="btn btn-primary" href="editStock.php?id=<?= $row['number']; ?>">Edit</a> <button class="btn btn-danger" onclick="confirmDelete('products', <?= $row['number']; ?>)">Delete</button> </td>
+                          <td>
+                            <?php if ($_SESSION['role'] == 'admin') : ?>
+                                <button class="btn btn-danger" onclick="confirmDelete('products', <?= $row['number']; ?>)">Delete</button> </td>
+                            <?php else : ?>
+                                <span>Only Admin Can Take This Action</span>
+                            <?php endif; ?>
                       </tr>       
                   <?php endforeach; ?>
             </tbody>

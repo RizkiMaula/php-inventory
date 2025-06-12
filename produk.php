@@ -2,6 +2,7 @@
 
 require_once 'koneksi.php';
 require_once 'logics/functions.php';
+session_start();
 
 $data = showData('products', 'ORDER BY `products`.`name` ASC');
 $i = 1;
@@ -17,7 +18,7 @@ $i = 1;
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5 border p-5 rounded shadow">
+    <div class="p-5">
         <h1>Data Product</h1>
         <a href="forms/formProduct.php">Tambah Data Produk</a>
     <table class="table table-striped" border="1" style="padding: 10px; text-align: center">
@@ -38,7 +39,13 @@ $i = 1;
                         <td> <?= $row['category']; ?> </td>
                         <td> <?= $row['price']; ?> </td>
                         <td> <?= format($row['created_at']); ?> </td>
-                        <td> <a class="btn btn-primary" href="forms/formProduct.php?id=<?= $row['id']; ?>">Edit</a> <button class="btn btn-danger" onclick="confirmDelete('products', <?= $row['id']; ?>)">Delete</button> </td>
+                        <td>
+                            <?php if ($_SESSION['role'] == 'admin') : ?>
+                                <a class="btn btn-primary" href="forms/formProduct.php?id=<?= $row['id']; ?>">Edit</a> <button class="btn btn-danger" onclick="confirmDelete('products', <?= $row['id']; ?>)">Delete</button> 
+                            <?php else : ?>
+                                <span>Only Admin Can Take This Action</span>
+                            <?php endif; ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
     </table>
