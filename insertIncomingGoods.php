@@ -44,7 +44,7 @@ if ($_SESSION['role'] != 'admin') {
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="quantity">Quantity</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="quantity" id="quantity">
+                    <input type="text" class="form-control" name="quantity" id="quantity" required>
                 </div>
             </div>
             <br>
@@ -52,6 +52,11 @@ if ($_SESSION['role'] != 'admin') {
             <a href="incomingGoods.php" class="btn btn-danger mt-3 w-100">Cancel</a>
         </form>
     </div>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+    import { timeoutAlert } from 'js/helper.js';
+    timeoutAlert();
+    </script>
 </body>
 </html>
 

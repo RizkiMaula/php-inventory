@@ -4,7 +4,7 @@ require_once 'koneksi.php';
 require_once "logics/functions.php";
 session_start();
 
-$query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_name, `users`.`name` as name, `transactions`.`total_sold` AS sold, `transactions`.`total_price` AS total, `transactions`.`payment_method`AS payment, `transactions`.`price_per_unit`AS price, `transactions`.`transaction_date` AS date', 'transactions', 'products', '`products`.`id` = `transactions`.`product_id`', 'users', '`users`.`id` = `transactions`.`user_id`');
+$query = showDataJoin3('`transactions`.`id` as id ,`products`.`name` as product_name, `users`.`name` as name, `transactions`.`total_sold` AS sold, `transactions`.`total_price` AS total, `transactions`.`payment_method`AS payment, `transactions`.`price_per_unit`AS price, `transactions`.`transaction_date` AS date', 'transactions', 'products', '`products`.`id` = `transactions`.`product_id`', 'users', '`users`.`id` = `transactions`.`user_id`', 'ORDER BY `transactions`.`transaction_date` DESC');
 $i = 1;
 
 if ($_SESSION['role'] != 'admin') {

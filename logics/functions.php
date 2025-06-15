@@ -1,52 +1,52 @@
 <?php 
 
-function insertData($table, $data) {
-    global $koneksi;
+    function insertData($table, $data) {
+        global $koneksi;
 
-    // ambil columns dan placeholder
-    $columns = implode(',', array_keys($data));
-    $placeholder = rtrim(str_repeat('?,', count($data)), ',');
+        // ambil columns dan placeholder
+        $columns = implode(',', array_keys($data));
+        $placeholder = rtrim(str_repeat('?,', count($data)), ',');
 
-    // tentukan tipe data otomatis
-    $type = '';
-    foreach ($data as $value) {
-        if (is_int($value)) {
-            $type .= 'i';
-        } elseif (is_float($value)) {
-            $type .= 'd';
-        } else {
-            $type .= 's';
+        // tentukan tipe data otomatis
+        $type = '';
+        foreach ($data as $value) {
+            if (is_int($value)) {
+                $type .= 'i';
+            } elseif (is_float($value)) {
+                $type .= 'd';
+            } else {
+                $type .= 's';
+            }
         }
+
+        // logic insert
+        $query = "INSERT INTO $table ($columns) VALUES ($placeholder)";
+        $stmt = mysqli_prepare($koneksi, $query);
+
+        if (!$stmt) {
+            return ['success' => false, 'message' => 'Gagal menyiapkan query: ' . mysqli_error($koneksi)];
+        }
+
+        // bind data
+        $values = array_values($data);
+        mysqli_stmt_bind_param($stmt, $type, ...$values);
+
+        // execution
+        $success = mysqli_stmt_execute($stmt);
+        $error = mysqli_stmt_error($stmt);
+        mysqli_stmt_close($stmt);
+
+        return [
+            'success' => $success,
+            'message' => $error
+        ];
     }
-
-    // logic insert
-    $query = "INSERT INTO $table ($columns) VALUES ($placeholder)";
-    $stmt = mysqli_prepare($koneksi, $query);
-
-    if (!$stmt) {
-        return ['success' => false, 'message' => 'Gagal menyiapkan query: ' . mysqli_error($koneksi)];
-    }
-
-    // bind data
-    $values = array_values($data);
-    mysqli_stmt_bind_param($stmt, $type, ...$values);
-
-    // execution
-    $success = mysqli_stmt_execute($stmt);
-    $error = mysqli_stmt_error($stmt);
-    mysqli_stmt_close($stmt);
-
-    return [
-        'success' => $success,
-        'message' => $error
-    ];
-}
 
 
     // show data
-    function showData($table, $orderBy = null) {
+    function showData($table,$columns = "*" , $orderBy = null) {
         global $koneksi;
-        $query = mysqli_prepare($koneksi, "SELECT * FROM $table $orderBy");
+        $query = mysqli_prepare($koneksi, "SELECT $columns FROM $table $orderBy");
         mysqli_stmt_execute($query);
         $result = mysqli_stmt_get_result($query);
         $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -54,7 +54,7 @@ function insertData($table, $data) {
         return $data;
     }
         // show data with join
-        function showDataJoin($table, $table2, $joinCondition, $columns = "*", $orderBy = null) {
+    function showDataJoin($table, $table2, $joinCondition, $columns = "*", $orderBy = null) {
         global $koneksi;
 
         //safety. prevent sql injection
@@ -72,9 +72,9 @@ function insertData($table, $data) {
     }
 
     // join with 3 tables
-    function showDataJoin3($columns = "*", $table, $table2,  $joinCondition1, $table3, $joinCondition2) {
+    function showDataJoin3($columns = "*", $table, $table2,  $joinCondition1, $table3, $joinCondition2, $orderBy = null) {
         global $koneksi;
-        $query = "SELECT $columns FROM $table INNER JOIN $table2 ON $joinCondition1 INNER JOIN $table3 ON $joinCondition2";
+        $query = "SELECT $columns FROM $table INNER JOIN $table2 ON $joinCondition1 INNER JOIN $table3 ON $joinCondition2 $orderBy";
         $result = mysqli_query($koneksi, $query);
         $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $data;

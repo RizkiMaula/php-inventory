@@ -17,6 +17,7 @@
     // buat isi select option
     $products = showData('products');
     $users = showData('users');
+    $productQnt = showDataJoin('stock', 'products', 'stock.product_id = products.id', 'products.id, products.name, products.price, stock.quantity', 'ORDER BY `products`.`name` ASC');
 
     if ($_SESSION['role'] != 'admin') {
         header('Location: ../forbidden.php');
@@ -39,6 +40,13 @@
 <body>
     <div class="container mt-5 border p-5 rounded shadow">
         <h1><?= $isEdit ? 'Update' : 'Add'; ?> Transaction</h1>
+
+        <?php if (isset($_SESSION['error'])) : ?>
+            <div id="error-alert" class="alert alert-danger">
+                <?= $_SESSION['error']; unset($_SESSION['error']); ?>
+            </div>
+        <?php endif; ?>
+
         <form action="../logics/saveTransactions.php" method="post">
     
             <!-- hidden id, kalo edit ada tapi di hidden kalo insert ya ga ada -->
@@ -50,9 +58,9 @@
             <div class="row mb-3">
                 <label for="name" class="col-sm-2 col-form-label">Product Name</label>
                 <div class="col-sm-10">
-                    <select class="form-select" name="product_id" id="product_id">
+                    <select class="form-select" name="product_id" id="product_id" required>
                         <option disabled selected>Choose...</option>
-                        <?php foreach ($products as $product) : ?>
+                        <?php foreach ($productQnt as $product) : ?>
                             <option 
                                 value="<?= $product['id'] ?? ''; ?>" 
                                 data-price="<?= $product['price'] ?>" 
@@ -84,7 +92,7 @@
             <div class="row mb-3">
                 <label for="total_sold" class="col-sm-2 col-form-label">Total Sold</label>
                 <div class="col-sm-10">
-                    <input type="text" name="total_sold" id="total_sold" class="form-control" value="<?= $transaction['total_sold'] ?? ''; ?>">
+                    <input type="number" min="1" max="<?= $product['quantity']  ?>" name="total_sold" id="total_sold" class="form-control" value="<?= $transaction['total_sold'] ?? ''; ?>" required>
                 </div>
             </div>
     

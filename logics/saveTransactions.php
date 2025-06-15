@@ -15,6 +15,24 @@ $id = $_POST['id'] ?? null;
         'transaction_date' => date('Y-m-d H:i:s'),
     ];
 
+        $queryStock = showData('stock', 'quantity', 'WHERE product_id = ' . $data['product_id']);
+        $stock = $queryStock[0] ?? null;
+
+        if (!$stock) {
+            die('stock not found');
+        }
+
+        $totalSold = (int) $data['total_sold'];
+        $currentStock = (int) $stock['quantity'];
+
+        if ($data['total_sold'] > $currentStock) {
+            session_start();
+            $_SESSION['error'] = 'Stock tidak mencukupi';
+            header('Location: ../forms/formTransaction.php');
+            exit;
+        }
+
+
     if ($id) {
         // update
             $query = updateData('transactions', $data, $_POST['id']);

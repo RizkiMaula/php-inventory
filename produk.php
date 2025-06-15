@@ -4,7 +4,7 @@ require_once 'koneksi.php';
 require_once 'logics/functions.php';
 session_start();
 
-$data = showData('products', 'ORDER BY `products`.`name` ASC');
+$data = showData('products', '*', 'ORDER BY `products`.`name` ASC');
 $i = 1;
 
 ?>

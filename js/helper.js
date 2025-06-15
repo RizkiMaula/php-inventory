@@ -25,3 +25,12 @@ export function calculatePrice(productSelectId, soldInputId, totalInputId) {
 
   updateTotal();
 }
+
+export function timeoutAlert() {
+  setTimeout(() => {
+    const alert = document.getElementById('error-alert');
+    if (alert) {
+      alert.remove();
+    }
+  }, 3000);
+}
