@@ -116,19 +116,19 @@ HTML/CSS Struktur dan gaya dasar
    password: qwerty123
    ```
 
-2. 📥 Klik icon yang ada (Misalnya Product)\
+2. 📥 Klik icon yang ada (Misalnya Product)
 
 3. Pilih Aksi yang ingin di kerjakan:
 
-   - Klik Tambah Data untuk tambah data.\
+   - Klik Tambah Data untuk tambah data.
      - Isi sesuai data yang ingin dimasukan
      - Klik submit jika sudah benar
      - Klik _cancel_ untuk batal dan kembali ke halaman _form_
-   - Klik Edit untuk Edit data.\
+   - Klik Edit untuk Edit data.
      - Klik submit jika sudah benar
      - Klik _cancel_ untuk batal dan kembali ke halaman _form_
-   - Klik Delete untuk Delete data.\
-     > [!NOTE]
+   - Klik Delete untuk Delete data.
+     > [!NOTE]\
      > Semua sama, kecuali data stock. Pada data stock hanya ada Delete.
 
 4. 💰 Tambah Transaksi
