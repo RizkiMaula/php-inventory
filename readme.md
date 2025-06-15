@@ -1,4 +1,4 @@
-📦 Inventory Transaction Management App
+📦 #Inventory Transaction Management App
 Sistem manajemen stok dan transaksi berbasis PHP, Bootstrap, dan MySQL. Proyek ini digunakan untuk mengelola data barang, transaksi penjualan, serta stok keluar dan masuk dengan fitur validasi dan otorisasi berbasis role (admin).
 
 🗂️ Fitur Utama
