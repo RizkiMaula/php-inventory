@@ -48,7 +48,6 @@ if ($_SESSION['role'] != 'admin') {
                 <label class="col-sm-2 col-form-label" for="quantity">Quantity</label>
                 <div class="col-sm-10">
                     <input type="number" min="1" max="<?= $product['quantity']  ?>" class="form-control" name="quantity" id="quantity" required>
-                     <div id="emailHelp" class="form-text">Quantity available: 0.</div>
                 </div>
             </div>
             <div class="row mb-3">
