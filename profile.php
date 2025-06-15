@@ -18,7 +18,7 @@ session_start();
   <div class="container vh-100 d-flex justify-content-center align-items-center">
     <div class="card" style="width: 18rem; border: 1px solid #ccc; text-align: center;">
       <div class="card-header d-flex justify-content-center py-4">
-        <i data-lucide="user"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </div>
       <div class="card-body">
         <h5 class="card-title"><?= $_SESSION['name']; ?></h5>
@@ -29,9 +29,5 @@ session_start();
         <a href="index.php" class="btn btn-primary mx-3 mb-1">Back</a>
     </div>
   </div>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-    </script>
 </body>
 </html>

@@ -19,7 +19,6 @@
   "homepage": "https://github.com/RizkiMaula/php-inventory#readme",
   "description": "",
   "dependencies": {
-    "bootstrap": "^5.3.6",
-    "lucide": "^0.514.0"
+    "bootstrap": "^5.3.6"
   }
 }
