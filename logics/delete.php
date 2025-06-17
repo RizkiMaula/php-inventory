@@ -14,6 +14,31 @@ if (isset($_GET['table']) && isset($_GET['id']) && isset($_GET['redirect'])) {
         die('invalid request'); //prevent sql injection
     }
 
+        // ✅ Jika menghapus incoming_goods, maka kurangi stock
+    if ($table === 'incoming_goods') {
+        // Ambil record yang akan dihapus
+        $incoming = showById('incoming_goods', $id);
+        if ($incoming) {
+            $productId = $incoming['product_id'];
+            $quantity = $incoming['quantity'];
+
+            // Ambil stock sekarang
+            $stock = showByColumn('stock', 'product_id', $productId);
+            if ($stock) {
+                $newQuantity = $stock[0]['quantity'] - $quantity;
+                if ($newQuantity < 0) $newQuantity = 0; // cegah negatif
+                updateData('stock', ['quantity' => $newQuantity], 'product_id', $productId);
+            }
+        }
+    }
+
+    // 🔥 Jika yang dihapus adalah produk, hapus juga stok yang berkaitan
+    if ($table === 'products') {
+        $deleteStock = deleteByColumn('stock', 'product_id', $id);
+        // bisa log error kalau gagal hapus stok
+    }
+
+
     // delete data
     $result = deleteById($table, $id);
 

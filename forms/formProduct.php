@@ -37,7 +37,9 @@ if ($_SESSION['role'] != 'admin') {
         <h1><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</h1>
         <form action="../logics/saveProduct.php" method="post">
             <?php if ($isEdit) : ?>
-                <input type="hidden" name="id" id="id" value="<?= $product['id']; ?>">
+                    <input type="text" name="id" id="id" value="<?= $product['id']; ?>" readonly>
+                <?php else : ?>
+                    <input type="text" name="id" id="id" value="" readonly>
             <?php endif; ?>
     
             <div class="row mb-3">
@@ -59,7 +61,7 @@ if ($_SESSION['role'] != 'admin') {
                 </div>
             </div>
             <button type="submit" name="submit" class="btn btn-primary mt-3 w-100">Submit</button>
-            <a href="../transactions.php" class="btn btn-danger mt-3 w-100">
+            <a href="../produk.php" class="btn btn-danger mt-3 w-100">
                 Cancel
             </a>
         </form>

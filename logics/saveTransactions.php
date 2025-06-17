@@ -35,7 +35,7 @@ $id = $_POST['id'] ?? null;
 
     if ($id) {
         // update
-            $query = updateData('transactions', $data, $_POST['id']);
+            $query = updateData('transactions', $data,'id', $_POST['id']);
             $message = $query['success'] ? 'Berhasil ubah data' : 'Gagal ubah produk: ' . $query['error'];
     } else {
         // insert

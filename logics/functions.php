@@ -34,11 +34,13 @@
         // execution
         $success = mysqli_stmt_execute($stmt);
         $error = mysqli_stmt_error($stmt);
+        $insertId = mysqli_insert_id($koneksi);
         mysqli_stmt_close($stmt);
 
         return [
             'success' => $success,
-            'message' => $error
+            'message' => $error,
+            'id' => $insertId,
         ];
     }
 
@@ -53,6 +55,36 @@
         mysqli_stmt_close($query);
         return $data;
     }
+
+    // show data by column
+    function showByColumn($table, $column, $value) {
+        global $koneksi;
+
+        $query = "SELECT * FROM `$table` WHERE `$column` = ?";
+        $stmt = mysqli_prepare($koneksi, $query);
+        mysqli_stmt_bind_param($stmt, "s", $value);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
+
+    // show data by id
+    function showById($table, $id) {
+    global $koneksi;
+    $query = "SELECT * FROM $table WHERE id = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return mysqli_fetch_assoc($result);
+}
+
         // show data with join
     function showDataJoin($table, $table2, $joinCondition, $columns = "*", $orderBy = null) {
         global $koneksi;
@@ -139,47 +171,71 @@
         mysqli_stmt_close($query);
         return $result;
     }
+    
+    // delete by id
+    function deleteByColumn($table, $column, $value) {
+    global $koneksi;
+
+    $query = "DELETE FROM $table WHERE $column = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+
+    if (!$stmt) return false;
+
+    mysqli_stmt_bind_param($stmt, 's', $value);
+    $success = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    return $success;
+}
 
     // update data
-        function updateData($table, $data, $id) {
-            global $koneksi;
+function updateData($table, $data, $whereColumn, $whereValue) {
+    global $koneksi;
 
-            // ambil data
-            $setClause = "";
-            $type = "";
-            $values = [];
+    $setClause = "";
+    $type = "";
+    $values = [];
 
-            // tipe data
-            foreach ($data as $key => $value) {
-                $setClause .= "`$key` = ?,";
-                if (is_int($value)) {
-                    $type .= 'i';
-                } elseif (is_float($value)){
-                    $type .= 'd';
-                } else {
-                    $type .= 's';
-                }
-                $values[] = $value;
-            }
-
-            $setClause = rtrim($setClause, ", " );
-            $type .= "i";
-            $values[] = $id;
-
-            $query = "UPDATE $table SET $setClause WHERE id = ?";
-            $stmt = mysqli_prepare($koneksi, $query);
-
-            if (!$stmt) {
-                return ['success' => false, 'message' => 'gagal mengupdate data: ' . mysqli_error($koneksi)];
-            }
-
-            mysqli_stmt_bind_param($stmt, $type, ...$values);
-            $success = mysqli_stmt_execute($stmt);
-            $error = mysqli_stmt_error($stmt);
-            mysqli_stmt_close($stmt);
-
-            return ['success' => $success, 'message' => $error];
+    foreach ($data as $key => $value) {
+        $setClause .= "`$key` = ?,";
+        if (is_int($value)) {
+            $type .= 'i';
+        } elseif (is_float($value)) {
+            $type .= 'd';
+        } else {
+            $type .= 's';
         }
+        $values[] = $value;
+    }
+
+    $setClause = rtrim($setClause, ", ");
+
+    // Tambahkan tipe dan nilai untuk WHERE
+    if (is_int($whereValue)) {
+        $type .= 'i';
+    } elseif (is_float($whereValue)) {
+        $type .= 'd';
+    } else {
+        $type .= 's';
+    }
+
+    $values[] = $whereValue;
+
+    $query = "UPDATE `$table` SET $setClause WHERE `$whereColumn` = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+
+    if (!$stmt) {
+        return ['success' => false, 'message' => 'Gagal menyiapkan query: ' . mysqli_error($koneksi)];
+    }
+
+    mysqli_stmt_bind_param($stmt, $type, ...$values);
+    $success = mysqli_stmt_execute($stmt);
+    $error = mysqli_stmt_error($stmt);
+    mysqli_stmt_close($stmt);
+
+    return ['success' => $success, 'message' => $error];
+}
+
 
 
 ?>

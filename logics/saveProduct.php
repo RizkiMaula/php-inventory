@@ -12,13 +12,23 @@ $id = $_POST['id'] ?? null;
         'created_at' => date('Y-m-d H:i:s')
     ];
 
+
+
     if ($id) {
         // update
-            $query = updateData('products', $data, $_POST['id']);
+            $query = updateData('products', $data, 'id', $_POST['id']);
             $message = $query['success'] ? 'Berhasil ubah data' : 'Gagal ubah produk: ' . $query['error'];
     } else {
         // insert
             $query = insertData('products', $data);
+
+            if($query['success']) {
+                $insertStock = insertData('stock', [
+                    'product_id' => $query['id'],
+                    'quantity' => 0
+                ]);
+            }
+
             $message = $query['success'] ? 'Berhasil menambahkan data' : 'Gagal menambahkan produk: ' . $query['error'];
     }
 
