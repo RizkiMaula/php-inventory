@@ -31,7 +31,26 @@ require_once '../logics/functions.php';
         $query = insertData('outcoming_goods', $data);
 
         if ($query['success']) {
-            echo 
+            // Update stock jadi berkurang
+
+            $productId = $data['product_id'];
+            $quantity = (int)$data['quantity'];
+            
+            // 1. Cek apakah stock untuk product_id sudah ada
+            $existingStock = showByColumn('stock', 'product_id', $productId);
+
+            if ($existingStock) {
+                // 2. Update quantity existing
+                $newQuantity = $existingStock[0]['quantity'] - $quantity;
+                updateData('stock', ['quantity' => $newQuantity], 'product_id', $productId);
+            } else {
+                // 3. Insert stock baru
+                insertData('stock', [ 
+                    'product_id' => $productId, 
+                    'quantity' => $quantity 
+                ]);
+            }
+            echo
             "<script>
                     alert('Berhasil menambahkan data'); window.location.href = '../outcomingGoods.php';
             </script>";

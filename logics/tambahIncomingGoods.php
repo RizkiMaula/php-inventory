@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
     $query = insertData('incoming_goods', $data);
 
     if ($query['success']) {
-        // ✅ Update stock
+        // Update stock
 
         $productId = $data['product_id'];
         $quantity = (int)$data['quantity'];

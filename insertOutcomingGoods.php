@@ -37,9 +37,11 @@ if ($_SESSION['role'] != 'admin') {
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="name">Product Name</label>
                 <div class="col-sm-10">
-                    <select class="form-select" name="product_id" id="product">
+                    <select class="form-select" name="product_id" id="product" onchange="updateMaxStock()">
                         <?php foreach ($productQnt as $product) : ?>
-                            <option value="<?= $product['id'] ?>"><?= $product['name'] ?></option>
+                            <option value="<?= $product['id'] ?>" data-stock="<?= $product['quantity'] ?>">
+                                <?= $product['name'] ?> (Stok: <?= $product['quantity'] ?>)
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -47,7 +49,7 @@ if ($_SESSION['role'] != 'admin') {
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="quantity">Quantity</label>
                 <div class="col-sm-10">
-                    <input type="number" min="1" max="<?= $product['quantity']  ?>" class="form-control" name="quantity" id="quantity" required>
+                    <input type="number" min="1" class="form-control" name="quantity" id="quantity" required>
                 </div>
             </div>
             <div class="row mb-3">
@@ -65,6 +67,17 @@ if ($_SESSION['role'] != 'admin') {
             <a href="outcomingGoods.php" class="btn btn-danger mt-3 w-100">Cancel</a>
         </form>
     </div>
+
+    <script type="module">
+        import { updateMaxStock } from './js/helper.js';
+
+        // Update max saat pilihan berubah
+        document.getElementById('product').addEventListener('change', updateMaxStock);
+
+        // Jalankan saat halaman pertama kali dimuat
+        window.addEventListener('DOMContentLoaded', updateMaxStock);
+    </script>
+
 </body>
 </html>
 
