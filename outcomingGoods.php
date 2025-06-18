@@ -47,7 +47,15 @@ if ($_SESSION['role'] != 'admin') {
                         <td> <?= $row['qnt']; ?> </td>
                         <td> <?= $row['reason']; ?> </td>
                         <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                        <td> <button class="btn btn-danger" onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
+                        <td>
+                        <?php if (empty($row['transaction'])) : ?>
+                            <button class="btn btn-danger" onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">
+                                Undo
+                            </button>                                
+                        <?php else : ?> 
+                            <span>Delete this data <a href="transactions.php">here</a></span>
+                        </td>
+                        <?php endif; ?>
                     </tr>       
                 <?php endforeach; ?>
         </table>

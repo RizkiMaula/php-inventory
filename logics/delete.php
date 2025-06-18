@@ -31,7 +31,18 @@ if (isset($_GET['table']) && isset($_GET['id']) && isset($_GET['redirect'])) {
     }
 
     if ($table === 'transactions') {
-        # code...
+        $transaction = showById('transactions', $id);
+        if ($transaction) {
+            $productId = $transaction['product_id'];
+            $quantity = $transaction['total_sold'];
+
+            // Ambil stock sekarang
+            $stock = showByColumn('stock', 'product_id', $productId);
+            if ($stock) {
+                $newQuantity = $stock[0]['quantity'] + $quantity;
+                updateData('stock', ['quantity' => $newQuantity], 'product_id', $productId);
+            }
+        }
     }
 
 

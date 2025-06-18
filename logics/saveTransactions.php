@@ -36,10 +36,52 @@ $id = $_POST['id'] ?? null;
     if ($id) {
         // update
             $query = updateData('transactions', $data,'id', $_POST['id']);
+
+            if ($query['success']) {
+                $productId = $data['product_id'];
+                $transactionId = $query['id'];
+                $quantity = (int)$data['total_sold'];
+                $reason = 'sold';
+
+                // hapus data lama
+                $delete = deleteById('outcoming_goods', $transactionId); 
+
+                // tambahkan data ke outcoming_goods
+                $query = insertData('outcoming_goods', [
+                    'product_id' => $productId,
+                    'transaction_id' => $transactionId,
+                    'quantity' => $quantity,
+                    'reason' => $reason,
+                    'date' => date('Y-m-d H:i:s'),
+                ]);
+
+                // kurangi stock
+                $update = updateData('stock', ['quantity' => $stock['quantity'] - $quantity], 'product_id', $productId);
+            }
             $message = $query['success'] ? 'Berhasil ubah data' : 'Gagal ubah produk: ' . $query['error'];
     } else {
         // insert
             $query = insertData('transactions', $data);
+
+            if ($query['success']) {
+                $productId = $data['product_id'];
+                $transactionId = $query['id'];
+                $quantity = (int)$data['total_sold'];
+                $reason = 'sold';
+
+                // tambahkan data ke outcoming_goods
+                $query = insertData('outcoming_goods', [
+                    'product_id' => $productId,
+                    'transaction_id' => $transactionId,
+                    'quantity' => $quantity,
+                    'reason' => $reason,
+                    'date' => date('Y-m-d H:i:s'),
+                ]);
+
+                // kurangi stock
+                $update = updateData('stock', ['quantity' => $stock['quantity'] - $quantity], 'product_id', $productId);
+            }
+
             $message = $query['success'] ? 'Berhasil menambahkan data' : 'Gagal menambahkan produk: ' . $query['error'];
     }
 
