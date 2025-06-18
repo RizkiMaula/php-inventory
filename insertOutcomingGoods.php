@@ -39,19 +39,23 @@ if ($_SESSION['role'] != 'admin') {
                 <div class="col-sm-10">
                     <select class="form-select" name="product_id" id="product" onchange="updateMaxStock()">
                         <?php foreach ($productQnt as $product) : ?>
-                            <option value="<?= $product['id'] ?>" data-stock="<?= $product['quantity'] ?>">
+                            <option 
+                                value="<?= $product['id'] ?>" 
+                                data-stock="<?= $product['quantity'] ?>">
                                 <?= $product['name'] ?> (Stok: <?= $product['quantity'] ?>)
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
             </div>
+
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="quantity">Quantity</label>
                 <div class="col-sm-10">
                     <input type="number" min="1" class="form-control" name="quantity" id="quantity" required>
                 </div>
             </div>
+            
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="reason">Reason</label>
                 <div class="col-sm-10">
