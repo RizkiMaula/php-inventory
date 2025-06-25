@@ -2,11 +2,16 @@ export function setPriceProduct(productSelectId, priceInputId) {
   const productSelect = document.getElementById(productSelectId);
   const priceInput = document.getElementById(priceInputId);
 
-  productSelect.addEventListener('change', function () {
-    const selectedOption = this.options[this.selectedIndex];
+  function updatePrice() {
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
     const price = selectedOption.getAttribute('data-price');
     priceInput.value = price;
-  });
+  }
+
+  productSelect.addEventListener('change', updatePrice);
+
+  // Set price saat halaman pertama kali dimuat
+  window.addEventListener('DOMContentLoaded', updatePrice);
 }
 
 export function calculatePrice(productSelectId, soldInputId, totalInputId) {
