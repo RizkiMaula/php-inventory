@@ -34,3 +34,15 @@ export function timeoutAlert() {
     }
   }, 3000);
 }
+
+export function updateMaxStock() {
+  const select = document.getElementById('product');
+  const selectedOption = select.options[select.selectedIndex];
+  const stock = selectedOption.getAttribute('data-stock');
+  const quantityInput = document.getElementById('quantity');
+
+  if (stock && quantityInput) {
+    quantityInput.max = stock;
+    quantityInput.placeholder = `Max: ${stock}`;
+  }
+}
