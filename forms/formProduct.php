@@ -59,7 +59,7 @@ if ($_SESSION['role'] != 'admin') {
                 </div>
             </div>
             <button type="submit" name="submit" class="btn btn-primary mt-3 w-100">Submit</button>
-            <a href="../transactions.php" class="btn btn-danger mt-3 w-100">
+            <a href="../produk.php" class="btn btn-danger mt-3 w-100">
                 Cancel
             </a>
         </form>
