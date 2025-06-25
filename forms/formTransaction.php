@@ -15,9 +15,9 @@
     } 
 
     // buat isi select option
-    $products = showData('products');
     $users = showData('users');
     $productQnt = showDataJoin('stock', 'products', 'stock.product_id = products.id', 'products.id, products.name, products.price, stock.quantity', 'ORDER BY `products`.`name` ASC');
+    $paymentMethods = showEnum('transactions', 'payment_method');
 
     if ($_SESSION['role'] != 'admin') {
         header('Location: ../forbidden.php');
@@ -56,33 +56,34 @@
     
             <!-- product name -->
             <div class="row mb-3">
-                <label for="name" class="col-sm-2 col-form-label">Product Name</label>
+                <label class="col-sm-2 col-form-label" for="name">Product Name</label>
                 <div class="col-sm-10">
-                    <select class="form-select" name="product_id" id="product_id" required>
-                        <option disabled selected>Choose...</option>
+                    <select class="form-select" name="product_id" id="product" onchange="updateMaxStock()">
                         <?php foreach ($productQnt as $product) : ?>
                             <option 
-                                value="<?= $product['id'] ?? ''; ?>" 
-                                data-price="<?= $product['price'] ?>" 
-                                <?= $product['id'] ? 'selected' : ''; ?>>
-                                    <?= $product['name'] ?>
+                                value="<?= $product['id'] ?>" 
+                                data-price="<?= $product['price'] ?>"
+                                data-stock="<?= $product['quantity'] ?>"
+                                 <?= ($isEdit && $transaction['product_id'] == $product['id']) ? 'selected' : '' ?>
+                                >
+                                <?= $product['name'] ?> (Stok: <?= $product['quantity'] ?>)
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
             </div>
-    
+
             <!-- buat name -->
              <div class="row mb-3">
                  <label for="user_id" class="col-sm-2 col-form-label">Name</label>
                  <div class="col-sm-10">
                      <select class="form-select" name="user_id" id="user_id">
-                         <option disabled selected>Choose...</option>
+                        <option disabled <?= !$isEdit ? 'selected' : ''; ?> selected>Choose...</option>
                          <?php foreach ($users as $user) : ?>            
-                             <option value="<?= $user['id'] ?? ''; ?>"
-                                 <?= $user['id'] ? 'selected' : ''; ?>>
-                                 <?= $user['name'] ?>
-                             </option>
+                            <option value="<?= $user['id']; ?>"
+                                <?= ($isEdit && $transaction['user_id'] == $user['id']) ? 'selected' : ''; ?>>
+                                <?= $user['name']; ?>
+                            </option>
                          <?php endforeach; ?>
                      </select>
                  </div>
@@ -92,7 +93,7 @@
             <div class="row mb-3">
                 <label for="total_sold" class="col-sm-2 col-form-label">Total Sold</label>
                 <div class="col-sm-10">
-                    <input type="number" min="1" max="<?= $product['quantity']  ?>" name="total_sold" id="total_sold" class="form-control" value="<?= $transaction['total_sold'] ?? ''; ?>" required>
+                    <input type="number" min="1" name="total_sold" id="total_sold" class="form-control" value="<?= $transaction['total_sold'] ?? ''; ?>" required>
                 </div>
             </div>
     
@@ -117,11 +118,10 @@
                 <label for="payment_method" class="col-sm-2 col-form-label">Payment Method</label>
                 <div class="col-sm-10">                  
                     <select class="form-select" name="payment_method" id="payment_method">
-                        <option disabled selected>Choose...</option>
-                        <option value="cash">Cash</option>
-                        <option value="debit">Debit</option>
-                        <option value="credit">Credit</option>
-                        <option value="ewallet">Ewallet</option>
+                        <option disabled>Choose...</option>
+                        <?php foreach ($paymentMethods as $method) : ?>
+                            <option value="<?= $method ?>" <?= ($isEdit && $transaction['payment_method'] == $method) ? 'selected' : ''; ?>><?= ucfirst($method) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
@@ -133,9 +133,13 @@
     </div>
 
     <script type="module">
-        import { setPriceProduct, calculatePrice } from '../js/helper.js';
+        import { setPriceProduct, calculatePrice, updateMaxStock } from '../js/helper.js';
 
-        setPriceProduct('product_id', 'price_per_unit');
+        document.getElementById('product').addEventListener('change', updateMaxStock);
+
+        window.addEventListener('DOMContentLoaded', updateMaxStock);
+
+        setPriceProduct('product', 'price_per_unit');
         calculatePrice('total_sold', 'price_per_unit', 'total_price');
     </script>
 
