@@ -24,7 +24,7 @@ if ($_SESSION['role'] != 'admin') {
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="p-5">
+    <div class="container mt-5">
             <h1>Data Transactions</h1>
             <a href="forms/formTransaction.php">Tambah Transaction</a>
         <table class="table table-striped" style="padding: 10px; text-align: center">

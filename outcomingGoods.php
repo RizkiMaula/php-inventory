@@ -24,7 +24,7 @@ if ($_SESSION['role'] != 'admin') {
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5 border p-5 rounded shadow">
+    <div class="container mt-5">
         <h1>Data Outcoming Goods</h1>
         <a href="insertOutcomingGoods.php">Tambah Data Produk</a>
     <table class="table table-striped" style="padding: 10px; text-align: center">
@@ -47,7 +47,15 @@ if ($_SESSION['role'] != 'admin') {
                         <td> <?= $row['qnt']; ?> </td>
                         <td> <?= $row['reason']; ?> </td>
                         <td> <?= format($row['date'], 'd F Y'); ?> </td>
-                        <td> <button class="btn btn-danger" onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">Undo</button> </td>
+                        <td>
+                        <?php if (empty($row['transaction'])) : ?>
+                            <button class="btn btn-danger" onclick="confirmDelete('outcoming_goods', <?= $row['id']; ?>)">
+                                Undo
+                            </button>                                
+                        <?php else : ?> 
+                            <span>Delete this data <a href="transactions.php">here</a></span>
+                        </td>
+                        <?php endif; ?>
                     </tr>       
                 <?php endforeach; ?>
         </table>
