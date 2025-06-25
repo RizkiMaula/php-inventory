@@ -158,8 +158,10 @@ HTML/CSS Struktur dan gaya dasar
 
 ## 💡 Catatan Pengembangan
 
-- sudah terdapat pengurangan stok otomatis yang diatur di dalam `database`
+- sudah terdapat pengurangan stok otomatis yang diatur trigger di dalam `database`
 - Form edit transaksi sudah didukung melalui parameter id
+  > [!NOTE]\
+  > pada versi live demo, menggunakan infinity free dan itu membatasi untuk penggunaan trigger. Jadi untuk perhitungan pada live demo menggunakan logic dalam program. Jika ingin menggunakan tringger, import branch `main` dan import database `pemanasan.sql` ke `phpmyadmin`. Jika ingin menggunakan versi tanpa trigger, bisa import branch `infinity-free` import database `if0_39238009_pemanasan.sql` ke `phpmyadmin`.
 
 ## 📜 Lisensi
 
