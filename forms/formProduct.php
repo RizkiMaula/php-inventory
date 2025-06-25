@@ -36,11 +36,6 @@ if ($_SESSION['role'] != 'admin') {
     <div class="container mt-5 border p-5 rounded shadow">
         <h1><?= $isEdit ? 'Update' : 'Tambah'; ?> Produk</h1>
         <form action="../logics/saveProduct.php" method="post">
-            <?php if ($isEdit) : ?>
-                    <input type="text" name="id" id="id" value="<?= $product['id']; ?>" readonly>
-                <?php else : ?>
-                    <input type="text" name="id" id="id" value="" readonly>
-            <?php endif; ?>
     
             <div class="row mb-3">
                 <label for="name" class="col-sm-2 col-form-label">Name</label>

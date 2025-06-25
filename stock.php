@@ -18,34 +18,34 @@ $i = 1;
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="p-5">
+    <div class="container mt-5">
         <h1>Data Stock</h1>
-    <table class="table table-striped" border="1" style="padding: 10px; text-align: center">
-            <thead>
-                <tr style="padding: 10px;">
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Last Updated</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php  foreach ($query as $row) : ?>
-                      <tr style="padding: 10px;">
-                          <td> <?= $i++; ?> </td>
-                          <td> <?= $row['name']; ?> </td>
-                          <td> <?= $row['qnt']; ?> </td>
-                          <td> <?= format($row['updated'], 'd F Y'); ?> </td>
-                          <td>
-                            <?php if ($_SESSION['role'] == 'admin') : ?>
-                                <button class="btn btn-danger" onclick="confirmDelete('products', <?= $row['number']; ?>)">Delete</button> </td>
-                            <?php else : ?>
-                                <span>Only Admin Can Take This Action</span>
-                            <?php endif; ?>
-                      </tr>       
-                  <?php endforeach; ?>
-            </tbody>
+        <table class="table table-striped" border="1" style="padding: 10px; text-align: center">
+                <thead>
+                    <tr style="padding: 10px;">
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Last Updated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  foreach ($query as $row) : ?>
+                        <tr style="padding: 10px;">
+                            <td> <?= $i++; ?> </td>
+                            <td> <?= $row['name']; ?> </td>
+                            <td> <?= $row['qnt']; ?> </td>
+                            <td> <?= format($row['updated'], 'd F Y'); ?> </td>
+                            <td>
+                                <?php if ($_SESSION['role'] == 'admin') : ?>
+                                    <button class="btn btn-danger" onclick="confirmDelete('products', <?= $row['number']; ?>)">Delete</button> </td>
+                                <?php else : ?>
+                                    <span>Only Admin Can Take This Action</span>
+                                <?php endif; ?>
+                        </tr>       
+                    <?php endforeach; ?>
+                </tbody>
         </table>
         <a href="index.php">ke halaman index</a>
     </div>

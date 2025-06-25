@@ -24,7 +24,7 @@ if ($_SESSION['role'] != 'admin') {
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5 border p-5 rounded shadow">
+    <div class="container mt-5">
         <h1>Data Outcoming Goods</h1>
         <a href="insertOutcomingGoods.php">Tambah Data Produk</a>
     <table class="table table-striped" style="padding: 10px; text-align: center">
